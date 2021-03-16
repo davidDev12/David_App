@@ -9,17 +9,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MonAdapter extends BaseAdapter {
-    ArrayList< Item> items;
+public class mAdapter extends BaseAdapter {
     Context context;
-    LayoutInflater inflater;
-    public MonAdapter(ArrayList<Item> item, Context context) {
-        this.items = item;
-        this.context = context;
-        inflater = (LayoutInflater.from(context));
-    }
 
-   
+    ArrayList< Item> items;
+    LayoutInflater inflater;
+    public mAdapter(Context applicationContext,  ArrayList< Item> items) {
+        this.context = applicationContext;
+        this.items = items;
+        inflater = (LayoutInflater.from(applicationContext));
+    }
 
     @Override
     public int getCount() {
@@ -27,12 +26,12 @@ public class MonAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int i) {
         return null;
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int i) {
         return 0;
     }
 

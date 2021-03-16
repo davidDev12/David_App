@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class ListContactActivity extends AppCompatActivity {
     ListView ls;
     ArrayList<Item> list;
-    MonAdapter monadapter;
+    mAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,29 +28,11 @@ public class ListContactActivity extends AppCompatActivity {
         list.add(new Item("houcine",/*"daoud",*/"+212636520766"));
         list.add(new Item("Mohamed",/*"daoud",*/"+212677560566"));
         list.add(new Item("Ali",/*"daoud",*/"+212610748839"));
-        monadapter = new MonAdapter(list, this);
+        mAdapter = new mAdapter( getApplicationContext(),list);
+       ls.setAdapter(mAdapter);
 
-        ls.setAdapter(monadapter);
+      //  ls.setAdapter(mAdapter);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mymenu = getMenuInflater();
-        mymenu.inflate(R.menu.menu, menu);
-        // this is good
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item1:
-                Intent activity = new Intent(this, ContactActivity.class);
-                startActivity(activity);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }
