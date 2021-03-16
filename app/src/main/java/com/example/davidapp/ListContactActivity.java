@@ -23,7 +23,7 @@ ListView ls;
         list.add(new Item("houcine",/*"daoud",*/"+212636520766"));
         list.add(new Item("Mohamed",/*"daoud",*/"+212677560566"));
         list.add(new Item("Ali",/*"daoud",*/"+212610748839"));
-    MonAdapter monadapter = new MonAdapter(list);
+    MonAdapter monadapter = new MonAdapter(list,this);
     ls=findViewById(R.id.list2);
     ls.setAdapter(monadapter);
 
