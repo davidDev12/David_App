@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void affiche() {
         Intent activity = new Intent(MainActivity.this,ListContactActivity.class);
-        Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
-
         startActivity(activity);
+       // Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
+
+
     }
 }

@@ -14,18 +14,22 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ListContactActivity extends AppCompatActivity {
-ListView ls;
+    ListView ls;
+    ArrayList<Item> list;
+    MonAdapter monadapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_contact);
-        ArrayList<Item> list=new   ArrayList<Item>();
+        ls = findViewById(R.id.list2);
+        list = new ArrayList<Item>();
         list.add(new Item("houcine",/*"daoud",*/"+212636520766"));
         list.add(new Item("Mohamed",/*"daoud",*/"+212677560566"));
         list.add(new Item("Ali",/*"daoud",*/"+212610748839"));
-    MonAdapter monadapter = new MonAdapter(list,this);
-    ls=findViewById(R.id.list2);
-    ls.setAdapter(monadapter);
+        monadapter = new MonAdapter(list, this);
+
+        ls.setAdapter(monadapter);
 
     }
 
@@ -40,10 +44,12 @@ ListView ls;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:   Intent activity = new Intent(this,ContactActivity.class);
+            case R.id.item1:
+                Intent activity = new Intent(this, ContactActivity.class);
                 startActivity(activity);
                 return true;
-            default:return  super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
