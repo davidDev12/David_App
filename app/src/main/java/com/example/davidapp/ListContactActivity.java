@@ -33,6 +33,7 @@ ListView ls;
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mymenu = getMenuInflater();
         mymenu.inflate(R.menu.menu, menu);
+        // this is good
         return true;
     }
 
