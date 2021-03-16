@@ -3,9 +3,9 @@ package com.example.davidapp;
 import android.content.Context;
 
 public class Item {
-  String nom;
+ public String nom;
   //  String prenom;
-    String phone;
+   public String phone;
 
 
     public Item(String nom, String phone) {
