@@ -10,25 +10,25 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MonAdapter extends BaseAdapter {
-    ArrayList< Item> items;
+    ArrayList< Item> item;
     Context context;
-    LayoutInflater inflater;
+
     public MonAdapter(ArrayList<Item> item, Context context) {
-        this.items = item;
+        this.item = item;
         this.context = context;
-        inflater = (LayoutInflater.from(context));
     }
 
    
 
     @Override
     public int getCount() {
-        return items.size();
+        return item.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+
+        return item.get(position);
     }
 
     @Override
@@ -39,13 +39,14 @@ public class MonAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null)
-            convertView= inflater.inflate(R.layout.layouto,null);
+            convertView=LayoutInflater.from(context).inflate(R.layout.layouto,null);
 
         TextView nom=(TextView)convertView.findViewById(R.id.nomxml);
         TextView phone=(TextView)convertView.findViewById(R.id.phonexml);
 
-        nom.setText(items.get(position).nom);
-        phone.setText(items.get(position).phone);
+        nom.setText(item.get(position).nom);
+
+        phone.setText(item.get(position).phone);
 
         //TextView prenom=(TextView)convertView.findViewById(R.id.nom);
         return convertView;
