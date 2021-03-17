@@ -1,15 +1,20 @@
 package com.example.davidapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -80,5 +85,29 @@ public class ListContactActivity extends AppCompatActivity {
             ls.setAdapter(mAdapter);
             pDialog.hide();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                Intent activity = new Intent(this,ContactActivity.class);
+                startActivity(activity);
+                return true;
+            case R.id.item4:
+                this.finish();
+                return  true;
+            default:super.onOptionsItemSelected(item);
+
+        }
+        return true;
     }
 }

@@ -18,6 +18,7 @@ public class LoadConact extends AsyncTask<Void,Void, ArrayList<String>> {
 
     @Override
     protected ArrayList<String> doInBackground(Void... voids) {
+
         return null;
     }
 }
