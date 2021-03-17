@@ -3,7 +3,6 @@ package com.example.davidapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 
 public class ListContactActivity extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class ListContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_contact);
         ls = findViewById(R.id.list2);
-        list = new ArrayList<Item>();
+        list = new ArrayList<>();
      //  list.add(new Item("houcine",/*"daoud",*/"+212636520766"));
         //list.add(new Item("Mohamed",/*"daoud",*/"+212677560566"));
        // list.add(new Item("Ali",/*"daoud",*/"+212610748839"));
@@ -50,20 +48,17 @@ public class ListContactActivity extends AppCompatActivity {
     }
 
 
-    class loadContacts extends AsyncTask<Void, Void, ArrayList<Item>> {
+     class loadContacts extends AsyncTask<Void, Void, ArrayList<Item>> {
 
         @Override
         protected ArrayList<Item> doInBackground(Void... voids) {
             list = new ArrayList<Item>();
-          //  ArrayList Contacts = new ArrayList<String>();
+           ArrayList Contacts = new ArrayList<String>();
             Cursor q = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
             while(q.moveToNext()){
                 String nom = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String num = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 list.add(new Item(nom,num));
-
-                //list.add(new itemnom+" : "+ num);
-
             }
             return  list;
         }
@@ -91,7 +86,6 @@ public class ListContactActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.menu,menu);
-
         return true;
     }
 

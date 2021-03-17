@@ -4,19 +4,17 @@ import android.content.Context;
 import android.media.Image;
 
 public class Item {
- public String nom;
-  //  String prenom;
-   public String phone;
-
-
-
+    public String name;
+    public String phone;
+    public Image image;
     public Item(String nom, String phone) {
-        this.nom = nom;
-       // this.img = img;
+        this.name = nom;
         this.phone = phone;
     }
 
-    public Item() {
+    public Item(String nom, String phone,Image image) {
+        this.name = nom;
+        this.phone = phone;
+        this.image=image;
     }
-
 }
