@@ -7,12 +7,12 @@ public class Item {
  public String nom;
   //  String prenom;
    public String phone;
-   public   Image img;
 
 
-    public Item(String nom, String phone,Image img) {
+
+    public Item(String nom, String phone) {
         this.nom = nom;
-    //   this.img = img;
+       // this.img = img;
         this.phone = phone;
     }
 
