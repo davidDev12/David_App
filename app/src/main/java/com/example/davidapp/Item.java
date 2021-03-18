@@ -4,10 +4,6 @@ import android.content.Context;
 import android.media.Image;
 
 public class Item {
-
-
-
-
     public String name;
     public String phone;
     public Image image;

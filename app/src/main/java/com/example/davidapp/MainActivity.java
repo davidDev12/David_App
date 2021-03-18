@@ -12,7 +12,7 @@ import android.widget.Toast;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity {
-    Button topAffich;
+    Button topAffich , btnfirebase;
     Context context;
 
     @Override
@@ -20,6 +20,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         topAffich = findViewById(R.id.button3);
+        btnfirebase = findViewById(R.id.btnBase);
+
+        btnfirebase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebase();
+            }
+        });
         topAffich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         Intent activity = new Intent(MainActivity.this,ListContactActivity.class);
         startActivity(activity);
        // Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
+
+
+    }
+    public void firebase() {
+        Intent activity = new Intent(MainActivity.this,BaseActivity.class);
+        startActivity(activity);
+        // Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
 
 
     }

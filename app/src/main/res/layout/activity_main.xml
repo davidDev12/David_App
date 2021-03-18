@@ -44,11 +44,11 @@
             app:backgroundTint="#253C47" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnBase"
             android:layout_width="match_parent"
             android:layout_height="78dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Contact"
+            android:text="FireBase"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
