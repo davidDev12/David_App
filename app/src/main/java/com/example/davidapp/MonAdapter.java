@@ -44,7 +44,7 @@ public class MonAdapter extends BaseAdapter {
         TextView nom=(TextView)convertView.findViewById(R.id.nomxml);
         TextView phone=(TextView)convertView.findViewById(R.id.phonexml);
 
-        nom.setText(item.get(position).nom);
+        nom.setText(item.get(position).name);
 
         phone.setText(item.get(position).phone);
 
