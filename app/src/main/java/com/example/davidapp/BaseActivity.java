@@ -22,18 +22,19 @@ public class BaseActivity extends AppCompatActivity {
 
     Button add;
     EditText txtname,txtphone;
+    MyDatabase myDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
         add=findViewById(R.id.btnAdd);
         txtname=findViewById(R.id.name);
-        txtname=findViewById(R.id.phone);
+        txtphone=findViewById(R.id.phone);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                myDatabase=new MyDatabase();
+                myDatabase.addItems();
             }
         });
     }
