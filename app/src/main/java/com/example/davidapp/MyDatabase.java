@@ -26,6 +26,7 @@ class MyDatabase {
         boolean ver;
     public MyDatabase(ArrayList<Item> list) {
         this.list = list;
+
         ver=true;
     }
 
@@ -56,12 +57,15 @@ class MyDatabase {
             });
         }
         else{
-            HashMap<Item,Item> contac = convertArrayListToHashMap(list);
-            db.collection("contact").add(contac).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            /*Item item = new Item(list);
+            item.Convert();*/
+            //HashMap<Item,Item> contac = convertArrayListToHashMap(list);
+            db.collection("contact").add(list).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                 }
+
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -71,13 +75,13 @@ class MyDatabase {
         }
     }
 
-    private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
+   /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
         HashMap<Item, Item> hashMap = new HashMap<>();
         for (Item str : arrayList) {
             hashMap.put(str, str);
         }
         return hashMap;
-    }
+    }*/
 
     public void updateITems() {
         Map<String, Object> user = new HashMap<>();

@@ -76,6 +76,8 @@ public class ListContactActivity extends AppCompatActivity {
             while (q.moveToNext()) {
                 String nom = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String num = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                myDatabase=new MyDatabase(nom,num);
+                myDatabase.addItems();
                 list.add(new Item(nom, num));
                 ///show
             }

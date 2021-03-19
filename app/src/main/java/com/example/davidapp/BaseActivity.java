@@ -37,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
                 myDatabase.addItems();
                 txtname.setText("");
                 txtphone.setText("");
+
             }
         });
     }
