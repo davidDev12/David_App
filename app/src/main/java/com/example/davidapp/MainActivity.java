@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 firebase();
             }
         });
-        topAffich.setOnClickListener(new View.OnClickListener() {
+       topAffich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 affiche();
@@ -39,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
     public void affiche() {
         Intent activity = new Intent(MainActivity.this,ListContactActivity.class);
         startActivity(activity);
-       // Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "contact", Toast.LENGTH_SHORT).show();
 
 
     }
     public void firebase() {
         Intent activity = new Intent(MainActivity.this,BaseActivity.class);
         startActivity(activity);
-        // Toast.makeText(this, "You clicked me", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "firebase", Toast.LENGTH_SHORT).show();
 
 
     }

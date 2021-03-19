@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseActivity extends AppCompatActivity {
-    private static final String TAG ="DocSnippets" ;
+
 
     Button add;
     EditText txtname,txtphone;
@@ -33,8 +33,10 @@ public class BaseActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDatabase=new MyDatabase();
+                myDatabase=new MyDatabase(txtname.getText().toString(),txtphone.getText().toString());
                 myDatabase.addItems();
+                txtname.setText("");
+                txtphone.setText("");
             }
         });
     }

@@ -15,15 +15,22 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListContactActivity extends AppCompatActivity {
     ListView ls;
     ArrayList<Item> list;
     mAdapter mAdapter;
-
+    MyDatabase myDatabase;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +48,20 @@ public class ListContactActivity extends AppCompatActivity {
         }
         loadContacts load = new loadContacts();
         load.execute();
+      //  save=findViewById(R.id.button5);
+        /*save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDatabase=new MyDatabase(list);
+            }
+        });*/
+
         // The contacts from the contacts content provider is stored in this
         // cursor
         //   MatrixCursor = new MatrixCursor(new String[] { "_id", "name", "photo",
         //          "details" });
         //  ls.setAdapter(mAdapter);
+
 
     }
 
@@ -102,6 +118,16 @@ public class ListContactActivity extends AppCompatActivity {
             case R.id.item4:
                 this.finish();
                 return true;
+            case R.id.item3:
+
+                try{myDatabase=new MyDatabase(list);
+                myDatabase.addItems();
+
+                Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();} catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,"Failed!!!",Toast.LENGTH_SHORT).show();
+                }
+                return  true;
             default:
                 super.onOptionsItemSelected(item);
 
