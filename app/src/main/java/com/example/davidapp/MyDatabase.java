@@ -24,9 +24,10 @@ import java.util.Map;
 class MyDatabase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static String userId = "OjbxAtIbd53GVHtnhnVW";
-    public final String TAG = "§§§$$ // Firebase";
+    public final String TAG = "§§§";
     public CollectionReference collectionReferenceContacts = db.collection("users").document(userId).collection("contacts");
     public DocumentReference docRef = db.collection("cities").document("SF");
+
 
     public void addItems(Item item) {
         collectionReferenceContacts.add(item.toMap()).addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId())).addOnFailureListener(e -> Log.d(TAG, "Error 404: ", e));
@@ -49,19 +50,27 @@ class MyDatabase {
     }
 
     public ArrayList<Item> getItems() {
-        ArrayList<Item> items = new ArrayList<>();
+        ArrayList<Item>    items = new ArrayList<>();
+
         collectionReferenceContacts
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
-                            items.add(new Item(document));
+                            items.add(document.toObject(Item.class));
+                            items.add(new Item(
+                                    document.getId(), document.get("name").toString(), "kfwe989fwo", "dksnfkjdf7dsfk"
+                            ));
+                            Log.d("testObject", document.toObject(Item.class).name);
+
                         }
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
+        Log.d("7777", "%%%% the list from FireBase" + " " + items.size());
+
         return items;
     }
 }

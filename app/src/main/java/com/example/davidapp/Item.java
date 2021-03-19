@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.Image;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,28 +15,43 @@ public class Item {
     public String name;
     public String phone;
     public String image;
+
     public Item(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }
 
-    public Item(String name, String phone,String image) {
+    public Item(String id, String name, String phone,String image) {
+        this.id=id;
         this.name = name;
         this.phone = phone;
-        this.image=image;
+        this.image = image;
     }
 
-    public Item(DocumentSnapshot documentSnapshot) {
-        this.id=documentSnapshot.getId();
-        this.name = Objects.requireNonNull(documentSnapshot.get("name")).toString();
-        this.phone = Objects.requireNonNull(documentSnapshot.get("phone")).toString();;
-        this.image = Objects.requireNonNull(documentSnapshot.get("image")).toString();;
+    public Item() {
     }
-    public Map<String,Object> toMap(){
-        HashMap<String,Object> mMap = new HashMap<>();
-            mMap.put("name",name);
-            mMap.put("phone",phone);
-            mMap.put("image",image);
+
+
+    public Item(String name, String phone, String image) {
+        this.name = name;
+        this.phone = phone;
+        this.image = image;
+    }
+
+    public Item(QueryDocumentSnapshot documentSnapshot) {
+        this.id = documentSnapshot.getId();
+        this.name = (documentSnapshot.get("name")).toString();
+        this.phone = (documentSnapshot.get("phone")).toString();
+        ;
+        this.image = (documentSnapshot.get("image")).toString();
+        ;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> mMap = new HashMap<>();
+        mMap.put("name", name);
+        mMap.put("phone", phone);
+        mMap.put("image", image);
         return mMap;
     }
 }
