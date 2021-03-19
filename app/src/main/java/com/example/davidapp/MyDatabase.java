@@ -28,6 +28,7 @@ class MyDatabase {
     public CollectionReference collectionReferenceContacts = db.collection("users").document(userId).collection("contacts");
     public DocumentReference docRef = db.collection("cities").document("SF");
 
+    public static ArrayList<Item> mArrayList = new ArrayList<Item>();
 
     public void addItems(Item item) {
         collectionReferenceContacts.add(item.toMap()).addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId())).addOnFailureListener(e -> Log.d(TAG, "Error 404: ", e));
@@ -50,27 +51,19 @@ class MyDatabase {
     }
 
     public ArrayList<Item> getItems() {
-        ArrayList<Item>    items = new ArrayList<>();
-
-        collectionReferenceContacts
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.getData());
-                            items.add(document.toObject(Item.class));
-                            items.add(new Item(
-                                    document.getId(), document.get("name").toString(), "kfwe989fwo", "dksnfkjdf7dsfk"
-                            ));
-                            Log.d("testObject", document.toObject(Item.class).name);
-
-                        }
+      //mArrayList.clear();
+        collectionReferenceContacts.get()
+                .addOnSuccessListener(documentSnapshots -> {
+                    if (documentSnapshots.isEmpty()) {
+                        Log.d(TAG, "onSuccess: LIST EMPTY");
                     } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
+                        List<Item> types = documentSnapshots.toObjects(Item.class);
+                        mArrayList.addAll(types);
+                        Log.d(TAG, "onSuccess: " + mArrayList.size());
                     }
                 });
-        Log.d("7777", "%%%% the list from FireBase" + " " + items.size());
-
-        return items;
+        return  mArrayList;
     }
+
 }
+

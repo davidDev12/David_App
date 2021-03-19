@@ -59,13 +59,15 @@ public class BaseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 myDatabase = new MyDatabase();
                 items = new ArrayList<>();
-                itemStrings = new ArrayList<>();
+                items.clear();
+                //itemStrings = new ArrayList<>();
                 items = myDatabase.getItems();
-                itemStrings.add("Noon");
-                items.forEach(item -> itemStrings.add(item.name));
-                //itemsAdapter = new mCustomAdapter(items, BaseActivity.this);
-                arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.simple_list_item_1, itemStrings);
-                listView.setAdapter(arrayAdapter);
+                //itemStrings.add("Noon");
+               // itemStrings.clear();
+               //items.forEach(item -> itemStrings.add(item.name));
+                itemsAdapter = new mCustomAdapter(items, BaseActivity.this);
+             //   arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.simple_list_item_1, itemStrings);
+                listView.setAdapter(itemsAdapter);
             }
         });
     }
