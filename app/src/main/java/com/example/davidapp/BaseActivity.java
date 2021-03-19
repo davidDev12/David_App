@@ -50,6 +50,8 @@ public class BaseActivity extends AppCompatActivity {
                 myDatabase = new MyDatabase();
                 final Item item = new Item(txtName.getText().toString(), txtPhone.getText().toString(), "mDavid/Contacts/pictures/Khalti.jpeg");
                 myDatabase.addItems(item);
+                txtName.getText().clear();
+                txtPhone.getText().clear();
             }
         });
         show.setOnClickListener(new View.OnClickListener() {
