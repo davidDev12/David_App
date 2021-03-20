@@ -46,7 +46,6 @@ public class mAdapter extends BaseAdapter {
         ImageView img = (ImageView) convertView.findViewById(R.id.imageView);
         nom.setText(items.get(position).name);
         phone.setText(items.get(position).phone);
-
         //TextView prenom=(TextView)convertView.findViewById(R.id.nom);
         return convertView;
     }

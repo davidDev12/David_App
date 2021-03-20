@@ -1,6 +1,7 @@
 package com.example.davidapp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -8,22 +9,49 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+import com.google.firebase.storage.StorageReference;
 
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
-class MyDatabase {
 
+
+class MyDatabase {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static ArrayList<Item> list = new ArrayList<Item>();
+    public static String userId = "mycontact";
+    public final String TAG = "§§§";
+    public CollectionReference collectionReferenceContacts = db.collection("Data");
+    public DocumentReference docRef = db.collection("Data").document("mycontact");
     public String name;
     public String phone;
-    ArrayList<Item> list;
+   //public ArrayList<Item> list;
         boolean ver;
+
+    public MyDatabase() {
+    }
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
     public MyDatabase(ArrayList<Item> list) {
         this.list = list;
 
@@ -35,16 +63,13 @@ class MyDatabase {
         this.phone = phone;
         ver=false;
     }
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public final String TAG = "David";
-
+    ///Ad_Items////////////////////////////////////////////////////////////////////////
     public void addItems() {
         if(ver==false) {
             Map<String, Object> user = new HashMap<>();
             user.put("name", name);
             user.put("phone", phone);
-            db.collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            collectionReferenceContacts.add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
@@ -74,16 +99,10 @@ class MyDatabase {
             });
         }
     }
-
-   /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
-        HashMap<Item, Item> hashMap = new HashMap<>();
-        for (Item str : arrayList) {
-            hashMap.put(str, str);
-        }
-        return hashMap;
-    }*/
+    ///Update_Items/////////////////////////////////////////////////////////////////////////////
 
     public void updateITems() {
+
         Map<String, Object> user = new HashMap<>();
         user.put("name", "txtname");
         user.put("phone", "txtphone");
@@ -96,29 +115,46 @@ class MyDatabase {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //Log.d(TAG, "Erreur 404: ",e);
-            }
-        });
-
+            }});
     }
-
-    public void getItems() {
-        DocumentReference docRef = db.collection("cities").document("SF");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    assert document != null;
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+       /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
+        HashMap<Item, Item> hashMap = new HashMap<>();
+        for (Item str : arrayList) {
+            hashMap.put(str, str);
+        }
+        return hashMap;*/
+    /* public ArrayList<Item> getItems() {
+      //mArrayList.clear();
+        collectionReferenceContacts.get()
+                .addOnSuccessListener(documentSnapshots -> {
+                    if (documentSnapshots.isEmpty()) {
+                        Log.d(TAG, "onSuccess: LIST EMPTY");
                     } else {
-                        Log.d(TAG, "No such document");
+                        List<Item> types = documentSnapshots.toObjects(Item.class);
+                        mArrayList.addAll(types);
+                        Log.d(TAG, "onSuccess: " + mArrayList.size());
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
+                });
+        return  mArrayList;
+    }*/
+          public ArrayList<Item> getItems() {
+               // list.clear();
+                collectionReferenceContacts.get()
+                        .addOnSuccessListener(documentSnapshots -> {
+                            if (documentSnapshots.isEmpty()) {
+                                Log.d(TAG, "onSuccess: LIST EMPTY");
+                            } else {
+                                List<Item> types = documentSnapshots.toObjects(Item.class);
+                                list.addAll(types);
+                                Log.d(TAG, "onSuccess: " + list.size());
+                            }
+                        });
+
+
+              return  list;
+          }
 
     }
-}
+    ///Get_Items//////////////////////////////////////////////////////////////////////////////
+
+

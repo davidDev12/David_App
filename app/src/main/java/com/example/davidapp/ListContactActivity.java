@@ -31,6 +31,8 @@ public class ListContactActivity extends AppCompatActivity {
     mAdapter mAdapter;
     MyDatabase myDatabase;
     Button save;
+    ArrayList<String> itemStrings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +48,14 @@ public class ListContactActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(ListContactActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
         }
-        loadContacts load = new loadContacts();
-        load.execute();
+      //  ls.setAdapter(mAdapter);
       //  save=findViewById(R.id.button5);
         /*save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDatabase=new MyDatabase(list);
-            }
-        });*/
-
-        // The contacts from the contacts content provider is stored in this
-        // cursor
-        //   MatrixCursor = new MatrixCursor(new String[] { "_id", "name", "photo",
-        //          "details" });
-        //  ls.setAdapter(mAdapter);
-
-
+                myDatabase=new MyDatabase(list);} });*/
     }
-
-
     class loadContacts extends AsyncTask<Void, Void, ArrayList<Item>> {
-
         @Override
         protected ArrayList<Item> doInBackground(Void... voids) {
             list = new ArrayList<Item>();
@@ -76,8 +64,8 @@ public class ListContactActivity extends AppCompatActivity {
             while (q.moveToNext()) {
                 String nom = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String num = q.getString(q.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                myDatabase=new MyDatabase(nom,num);
-                myDatabase.addItems();
+               // myDatabase=new MyDatabase(nom,num);
+             //   myDatabase.addItems();
                 list.add(new Item(nom, num));
                 ///show
             }
@@ -102,14 +90,12 @@ public class ListContactActivity extends AppCompatActivity {
             pDialog.hide();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -121,18 +107,30 @@ public class ListContactActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.item3:
-
                 try{myDatabase=new MyDatabase(list);
                 myDatabase.addItems();
-
                 Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();} catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(this,"Failed!!!",Toast.LENGTH_SHORT).show();
                 }
                 return  true;
+            case R.id.item6:
+                loadContacts load = new loadContacts();
+                load.execute();
+                return true;
+            case R.id.item5:try {
+                list = new ArrayList<>();
+                myDatabase=new MyDatabase();
+                list=myDatabase.getItems();
+                mAdapter = new mAdapter(getApplicationContext(), list);
+               // ls.setAdapter(mAdapter);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this,"Failed6666!!!",Toast.LENGTH_SHORT).show();
+            }
             default:
                 super.onOptionsItemSelected(item);
-
         }
         return true;
     }
