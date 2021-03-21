@@ -19,7 +19,11 @@ public class Item {
         this.name = nom;
         this.phone = phone;
     }
-    public Item(String nom, String phone,Image image) {
+
+    public Item() {
+    }
+
+    public Item(String nom, String phone, Image image) {
         this.name = nom;
         this.phone = phone;
         this.image=image;

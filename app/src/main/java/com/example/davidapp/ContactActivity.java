@@ -27,6 +27,7 @@ public class ContactActivity extends AppCompatActivity {
                 myDatabase.addItems();
                 txtname.setText("");
                 txtphone.setText("");
+               finish();
             }
         });
     }

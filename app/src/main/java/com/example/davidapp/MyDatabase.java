@@ -38,7 +38,8 @@ import java.util.Map;
 
 class MyDatabase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static ArrayList<Item> list = new ArrayList<Item>();
+    public static ArrayList<Item> marraylist = new ArrayList<Item>();
+    public  ArrayList<Item> list;
     public static String userId = "mycontact";
     public final String TAG = "§§§";
     public CollectionReference collectionReferenceContacts = db.collection("Data");
@@ -50,14 +51,10 @@ class MyDatabase {
 
     public MyDatabase() {
     }
-
-    FirebaseStorage storage = FirebaseStorage.getInstance();
     public MyDatabase(ArrayList<Item> list) {
         this.list = list;
-
         ver=true;
     }
-
     public MyDatabase(String name, String phone) {
         this.name = name;
         this.phone = phone;
@@ -114,7 +111,7 @@ class MyDatabase {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //Log.d(TAG, "Erreur 404: ",e);
+                Log.d(TAG, "Erreur 404: ",e);
             }});
     }
        /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
@@ -138,22 +135,19 @@ class MyDatabase {
         return  mArrayList;
     }*/
           public ArrayList<Item> getItems() {
-               // list.clear();
+           //    marraylist.removeAll(marraylist);
                 collectionReferenceContacts.get()
                         .addOnSuccessListener(documentSnapshots -> {
                             if (documentSnapshots.isEmpty()) {
                                 Log.d(TAG, "onSuccess: LIST EMPTY");
                             } else {
-                                List<Item> types = documentSnapshots.toObjects(Item.class);
-                                list.addAll(types);
-                                Log.d(TAG, "onSuccess: " + list.size());
+                                ArrayList<Item> types = (ArrayList<Item>) documentSnapshots.toObjects(Item.class);
+                                marraylist.addAll(types);
+                                Log.d(TAG, "onSuccess: " + marraylist.size());
                             }
                         });
-
-
-              return  list;
+              return  marraylist;
           }
-
     }
     ///Get_Items//////////////////////////////////////////////////////////////////////////////
 

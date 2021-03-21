@@ -7,7 +7,7 @@
     <application
 
 
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_round"
         android:label="David App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -23,7 +23,8 @@
 
         <activity
             android:name=".ListContactActivity"
-            android:label="List contact" />
+            android:label="List contact"
+            android:icon="@drawable/img"/>
         <activity
             android:name=".ContactActivity"
             android:label="Contact" />

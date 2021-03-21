@@ -3,6 +3,7 @@ package com.example.davidapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 
 public class ListContactActivity extends AppCompatActivity {
     ListView ls;
-    ArrayList<Item> list;
+   public static ArrayList<Item> list;
     mAdapter mAdapter;
     MyDatabase myDatabase;
     Button save;
@@ -100,8 +101,12 @@ public class ListContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Intent activity = new Intent(this, ContactActivity.class);
-                startActivity(activity);
+                FragmentTransaction frag = getSupportFragmentManager().beginTransaction();
+                PopActivity pop = new PopActivity();
+                pop.show(frag,null);
+
+               // Intent activity = new Intent(this, ContactActivity.class);
+                //startActivity(activity);
                 return true;
             case R.id.item4:
                 this.finish();
@@ -118,21 +123,20 @@ public class ListContactActivity extends AppCompatActivity {
                 loadContacts load = new loadContacts();
                 load.execute();
                 return true;
-            case R.id.item5:try {
-                list = new ArrayList<>();
-                myDatabase=new MyDatabase();
-                list=myDatabase.getItems();
-                mAdapter = new mAdapter(getApplicationContext(), list);
-               // ls.setAdapter(mAdapter);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this,"Failed6666!!!",Toast.LENGTH_SHORT).show();
-            }
-            default:
-                super.onOptionsItemSelected(item);
+            case R.id.item5:get();
+            return true;
+            default: super.onOptionsItemSelected(item);
         }
         return true;
     }
+public void get(){
+    list = new ArrayList<>();
+    myDatabase=new MyDatabase();
+   list.add(new Item(myDatabase.getItems()));
+    list=myDatabase.getItems();
+    //myDatabase.getItems();
 
+    mAdapter = new mAdapter(getApplicationContext(), list);
+    ls.setAdapter(mAdapter);
+}
 }
