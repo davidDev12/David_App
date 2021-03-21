@@ -39,30 +39,33 @@ import java.util.Map;
 class MyDatabase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static ArrayList<Item> marraylist = new ArrayList<Item>();
-    public  ArrayList<Item> list;
+    public ArrayList<Item> list;
     public static String userId = "mycontact";
     public final String TAG = "§§§";
-    public CollectionReference collectionReferenceContacts = db.collection("Data");
-    public DocumentReference docRef = db.collection("Data").document("mycontact");
+    public CollectionReference collectionReferenceContacts = db.collection("Data").document(userId).collection("liscontact");
+    public DocumentReference docRef = db.collection("Data").document(userId);
     public String name;
     public String phone;
-   //public ArrayList<Item> list;
-        boolean ver;
+    //public ArrayList<Item> list;
+    boolean ver;
 
     public MyDatabase() {
     }
+
     public MyDatabase(ArrayList<Item> list) {
         this.list = list;
-        ver=true;
+        ver = true;
     }
+
     public MyDatabase(String name, String phone) {
         this.name = name;
         this.phone = phone;
-        ver=false;
+        ver = false;
     }
+
     ///Ad_Items////////////////////////////////////////////////////////////////////////
     public void addItems() {
-        if(ver==false) {
+        if (ver == false) {
             Map<String, Object> user = new HashMap<>();
             user.put("name", name);
             user.put("phone", phone);
@@ -77,8 +80,7 @@ class MyDatabase {
                     Log.d(TAG, "Erreur 404: ", e);
                 }
             });
-        }
-        else{
+        } else {
             /*Item item = new Item(list);
             item.Convert();*/
             //HashMap<Item,Item> contac = convertArrayListToHashMap(list);
@@ -111,15 +113,17 @@ class MyDatabase {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Erreur 404: ",e);
-            }});
+                Log.d(TAG, "Erreur 404: ", e);
+            }
+        });
     }
-       /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
-        HashMap<Item, Item> hashMap = new HashMap<>();
-        for (Item str : arrayList) {
-            hashMap.put(str, str);
-        }
-        return hashMap;*/
+
+    /* private static HashMap<Item, Item> convertArrayListToHashMap(ArrayList<Item> arrayList) {
+     HashMap<Item, Item> hashMap = new HashMap<>();
+     for (Item str : arrayList) {
+         hashMap.put(str, str);
+     }
+     return hashMap;*/
     /* public ArrayList<Item> getItems() {
       //mArrayList.clear();
         collectionReferenceContacts.get()
@@ -134,21 +138,38 @@ class MyDatabase {
                 });
         return  mArrayList;
     }*/
-          public ArrayList<Item> getItems() {
-           //    marraylist.removeAll(marraylist);
-                collectionReferenceContacts.get()
-                        .addOnSuccessListener(documentSnapshots -> {
-                            if (documentSnapshots.isEmpty()) {
-                                Log.d(TAG, "onSuccess: LIST EMPTY");
-                            } else {
-                                ArrayList<Item> types = (ArrayList<Item>) documentSnapshots.toObjects(Item.class);
-                                marraylist.addAll(types);
-                                Log.d(TAG, "onSuccess: " + marraylist.size());
-                            }
-                        });
-              return  marraylist;
-          }
+    public ArrayList<Item> getItems() {
+        //    marraylist.removeAll(marraylist);
+        collectionReferenceContacts.get()
+                .addOnSuccessListener(documentSnapshots -> {
+                    if (documentSnapshots.isEmpty()) {
+                        Log.d(TAG, "onSuccess: LIST EMPTY");
+                    } else {
+                        ArrayList<Item> types = (ArrayList<Item>) documentSnapshots.toObjects(Item.class);
+                        marraylist.addAll(types);
+                        Log.d(TAG, "onSuccess: " + marraylist.size());
+                    }
+                });
+        return marraylist;
     }
-    ///Get_Items//////////////////////////////////////////////////////////////////////////////
 
+    ///Delet_Items//////////////////////////////////////////////////////////////////////////////
 
+    public void deletItems() {
+
+        docRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+
+    }
+}

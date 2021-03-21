@@ -1,80 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <EditText
-        android:id="@+id/namepop"
-        android:layout_width="247dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="60dp"
-        android:ems="10"
-        android:hint="Nom"
-        android:inputType="textPersonName"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="243dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/white"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/phonepop"
-        android:layout_width="247dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="60dp"
-        android:ems="10"
-        android:hint="Phone"
-        android:inputType="number|textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namepop" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:text="Ajouter nouveau contact"
+            android:textAlignment="center"
+            android:textColor="#0C0101"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="485dp"
+            android:layout_height="2dp" />
+
+        <EditText
+            android:id="@+id/namepop"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:textAlignment="viewStart"
+            android:textColor="#100000"
+            android:textSize="14sp"
+            android:textStyle="bold|italic" />
+
+        <Space
+            android:layout_width="485dp"
+            android:layout_height="2dp" />
+
+        <EditText
+            android:id="@+id/phonepop"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:ems="10"
+            android:hint="Phone"
+            android:inputType="number|textPersonName"
+            android:text="+2126-"
+            android:textColor="#6BBC0E"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="485dp"
+            android:layout_height="2dp" />
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnpopad"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="40dp"
-        android:background="#FFFFFF"
-        android:fontFamily="sans-serif-medium"
-        android:text="add"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold|italic"
-        android:typeface="monospace"
-        app:backgroundTint="#3F51B5"
-        app:icon="@android:drawable/ic_input_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phonepop" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="227dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="55dp"
-        android:background="@color/white"
-        android:text="Ajouter Nouveau contact"
-        android:textAlignment="textStart"
-        android:textColor="#120101"
+        android:layout_width="230dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:background="#00B0FF"
+        android:text="Add"
+        android:textColor="#000204"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/namepop"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconPadding="40dp"
+        app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+    <Space
+        android:layout_width="485dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnpopad" />
 </androidx.constraintlayout.widget.ConstraintLayout>

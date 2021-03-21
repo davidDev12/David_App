@@ -6,7 +6,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -26,9 +29,11 @@ import com.google.android.gms.tasks.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.activeandroid.Cache.getContext;
+
 public class ListContactActivity extends AppCompatActivity {
     ListView ls;
-   public static ArrayList<Item> list;
+   public  ArrayList<Item> list;
     mAdapter mAdapter;
     MyDatabase myDatabase;
     Button save;
@@ -55,6 +60,16 @@ public class ListContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myDatabase=new MyDatabase(list);} });*/
+    }
+    public Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
     }
     class loadContacts extends AsyncTask<Void, Void, ArrayList<Item>> {
         @Override
@@ -86,8 +101,7 @@ public class ListContactActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Item> strings) {
-            mAdapter = new mAdapter(getApplicationContext(), list);
-            ls.setAdapter(mAdapter);
+
             pDialog.hide();
         }
     }
@@ -100,7 +114,7 @@ public class ListContactActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.item6:
                 FragmentTransaction frag = getSupportFragmentManager().beginTransaction();
                 PopActivity pop = new PopActivity();
                 pop.show(frag,null);
@@ -108,23 +122,29 @@ public class ListContactActivity extends AppCompatActivity {
                // Intent activity = new Intent(this, ContactActivity.class);
                 //startActivity(activity);
                 return true;
-            case R.id.item4:
-                this.finish();
-                return true;
-            case R.id.item3:
+                case R.id.item3:
                 try{myDatabase=new MyDatabase(list);
-                myDatabase.addItems();
-                Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();} catch (Exception e) {
+                    myDatabase.addItems();
+                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();} catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(this,"Failed!!!",Toast.LENGTH_SHORT).show();
                 }
                 return  true;
-            case R.id.item6:
+            case R.id.item1:
+                this.finish();
+                return true;
+
+
+            case R.id.item4:
                 loadContacts load = new loadContacts();
                 load.execute();
+                //getcontact();
                 return true;
             case R.id.item5:get();
             return true;
+            case R.id.item2:
+                myDatabase=new MyDatabase(list);
+                    myDatabase.deletItems();
             default: super.onOptionsItemSelected(item);
         }
         return true;
@@ -132,11 +152,16 @@ public class ListContactActivity extends AppCompatActivity {
 public void get(){
     list = new ArrayList<>();
     myDatabase=new MyDatabase();
-   list.add(new Item(myDatabase.getItems()));
-    list=myDatabase.getItems();
+   list.addAll(myDatabase.getItems());
+   // list=myDatabase.getItems();
     //myDatabase.getItems();
 
     mAdapter = new mAdapter(getApplicationContext(), list);
     ls.setAdapter(mAdapter);
+}
+public void getcontact(){
+        mycontatc my=new mycontatc(list);
+        my.execute();
+        ls.setAdapter(mAdapter);
 }
 }

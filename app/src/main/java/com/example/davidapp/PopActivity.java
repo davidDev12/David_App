@@ -32,11 +32,11 @@ public class PopActivity extends DialogFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        this.dismiss();
+
         myDatabase=new MyDatabase(txtname.getText().toString(),txtphone.getText().toString());
         myDatabase.addItems();
         txtname.setText("");
         txtphone.setText("");
-
+        this.dismiss();
     }
 }
